@@ -17,8 +17,6 @@ export default function articles({ articleData, lastUpdate }) {
         alt='Picture of the author'
         width={500}
         height={500}
-        // blurDataURL="data:..." automatically provided
-        placeholder='blur' // Optional blur-up while loading
       />
       <div>{articleData.body}</div>
       <div className='lastUpdate'>Last update : {lastUpdate}</div>
