@@ -4,7 +4,7 @@ import { getArticles } from '../../models/article';
 
 export default function articles({ articleList, lastUpdate }) {
   return (
-    <Layout>
+    <Layout pageTitle='Articles'>
       <h2>Articles list : </h2>
       <div>
         {articleList.map((article) => (

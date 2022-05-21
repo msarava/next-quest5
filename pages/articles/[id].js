@@ -10,7 +10,7 @@ export default function articles({ articleData, lastUpdate }) {
   }
 
   return (
-    <Layout>
+    <Layout pageTitle={'Article'}>
       <h2>{articleData.title}</h2>
       <Image
         src={articleData.pictureUrl}
