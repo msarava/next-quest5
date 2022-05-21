@@ -1,8 +1,14 @@
 import Layout from '../../components/Layout';
 import { getArticles, getSingleArticle } from '../../models/article';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-export default function articles({ articleData }) {
+export default function articles({ articleData, lastUpdate }) {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Layout>
       <h2>{articleData.title}</h2>
@@ -11,11 +17,11 @@ export default function articles({ articleData }) {
         alt='Picture of the author'
         width={500}
         height={500}
-
         // blurDataURL="data:..." automatically provided
-        // placeholder="blur" // Optional blur-up while loading
+        placeholder='blur' // Optional blur-up while loading
       />
       <div>{articleData.body}</div>
+      <div className='lastUpdate'>Last update : {lastUpdate}</div>
     </Layout>
   );
 }
@@ -29,15 +35,16 @@ export async function getStaticPaths() {
   });
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
 
 export async function getStaticProps({ params }) {
   // Fetch necessary data for the blog post using params.id
   const articleData = await getSingleArticle(params.id);
-  console.log(articleData);
+  const generationDate = new Date();
+  const lastUpdate = generationDate.toString();
   return {
-    props: { articleData },
+    props: { articleData, lastUpdate },
   };
 }

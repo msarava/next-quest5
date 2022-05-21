@@ -41,3 +41,23 @@ img {
   max-width: 100%;
   display: block;
 }
+
+.lastUpdate {
+  font-style: italic;
+  color: gray;
+  font-size: 0.8rem;
+}
+
+.campusList {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.campusItem {
+  background-color: #fd7878;
+  border-radius: 1rem;
+  padding: 0 0.5rem;
+  color: white;
+}

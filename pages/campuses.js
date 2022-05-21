@@ -1,26 +1,31 @@
-import moment from "moment";
-import Layout from "../components/Layout";
-import { getCampusesFromDb } from "../db";
+import moment from 'moment';
+import Layout from '../components/Layout';
+import { getCampusesFromDb } from '../db';
 
-export default function CampusesPage({ campuses, lastUpdateDate }) {
+export default function CampusesPage({ results, lastUpdate }) {
   return (
-    <Layout pageTitle="Campuses">
-      <p>Page generated on : {lastUpdateDate}</p>
-      <h1>Our Campuses</h1>
-      {campuses.map(({ id, name }) => {
-        return <li key={id}>{name}</li>;
-      })}
+    <Layout pageTitle='Campuses'>
+      <h2>La liste des campus :</h2>
+      <div className='campusList'>
+        {results.map((campus) => (
+          <div className='campusItem' key={campus.id}>
+            {campus.name}
+          </div>
+        ))}
+      </div>
+      <div className='lastUpdate'>Last update : {lastUpdate}</div>
     </Layout>
   );
 }
 
 export async function getStaticProps() {
-  const currentDate = moment().format("YYYY-MM-DD - HH:mm:ss");
-  const campuses = await getCampusesFromDb();
+  const generationDate = new Date();
+  const lastUpdate = generationDate.toString();
+  const results = await getCampusesFromDb();
   return {
     props: {
-      campuses,
-      lastUpdateDate: currentDate
-    }
+      results,
+      lastUpdate,
+    },
   };
 }
